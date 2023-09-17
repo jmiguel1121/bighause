@@ -1,0 +1,317 @@
+========================================================
+------------------------BigHouseSede1-------------------
+========================================================
+enable 
+configure terminal 
+interface fastEthernet 0/0
+no shutdown 
+******************************************************************
+ip dhcp  pool datos
+network 192.168.20.0 255.255.255.0
+default-router 192.168.20.1
+option 150 ip 192.168.30.1
+exit
+
+ip dhcp pool voz
+network 192.168.30.0 255.255.255.0
+default-router 192.168.30.1
+option 150 ip 192.168.30.1
+exit
+
+ip dhcp  excluded-address 192.168.20.1
+telephony-service 
+max-dn 10
+max-ephones 10
+ip source-address 192.168.30.1 port 2000
+auto assign 1 to 10
+exit
+
+ephone-dn 1
+number 12001
+ephone-dn 2
+number 12002
+ephone-dn 3
+number 12003
+ephone-dn 4
+number 12004
+ephone-dn 5
+number 12005
+ephone-dn 6
+number 12006
+ephone-dn 7
+number 12007
+ephone-dn 8
+number 12008
+ephone-dn 9
+number 12009
+exit
+
+************ habilitar trafico ****************************
+interface fastEthernet 0/0.20
+description Interfaz datos
+encapsulation dot1Q 20
+ip address 192.168.20.1 255.255.255.0
+no shutdown
+exit
+interface fastEthernet 0/0.30
+description Interfaz datos
+encapsulation dot1Q 30
+ip address 192.168.30.1 255.255.255.0
+no shutdown 
+exit
+
+************config serial***********************************
+interface serial 0/1/0
+ip address 10.10.10.1 255.255.255.252
+no shutdown 
+exit
+************ conexion entre routers************************
+************ conexion entre routers voz************************
+dial-peer voice 1 voip 
+destination-pattern 1300.
+session target ipv4:10.10.10.2
+exit
+
+========================================================
+------------------------RecursosHumanos-----------------
+========================================================
+enable 
+configure terminal 
+vlan 20
+name datos
+exit 
+vlan 30
+name voz
+exit
+interface range fastEthernet 0/3-4
+switchport mode access 
+switchport access vlan 20
+switchport voice vlan 30
+no shutdown 
+exit
+******************************************************
+interface fastEthernet 0/1
+switchport mode trunk 
+no shutdown 
+exit
+interface fastEthernet 0/2
+switchport mode trunk 
+no shutdown 
+exit
+
+========================================================
+------------------------RecepcionCafeteria---------------
+========================================================
+enable 
+configure terminal 
+vlan 20
+name datos
+exit 
+vlan 30
+name voz
+exit
+interface range fastEthernet 0/3-5
+switchport mode access 
+switchport access vlan 20
+switchport voice vlan 30
+no shutdown 
+exit
+******************************************************
+interface fastEthernet 0/1
+switchport mode trunk 
+no shutdown 
+exit
+interface fastEthernet 0/2
+switchport mode trunk 
+no shutdown 
+exit
+
+========================================================
+------------------------Comercial-----------------------
+========================================================
+enable 
+configure terminal 
+vlan 20
+name datos
+exit 
+vlan 30
+name voz
+exit
+interface range fastEthernet 0/3-8
+switchport mode access 
+switchport access vlan 20
+switchport voice vlan 30
+no shutdown 
+exit
+******************************************************
+interface fastEthernet 0/1
+switchport mode trunk 
+no shutdown 
+exit
+interface fastEthernet 0/2
+switchport mode trunk 
+no shutdown 
+exit
+
+========================================================
+------------------------Gerencia------------------------
+========================================================
+enable 
+configure terminal 
+vlan 20
+name datos
+exit 
+vlan 30
+name voz
+exit
+interface range fastEthernet 0/3-4
+switchport mode access 
+switchport access vlan 20
+switchport voice vlan 30
+no shutdown 
+exit
+******************************************************
+interface fastEthernet 0/1
+switchport mode trunk 
+no shutdown 
+exit
+interface fastEthernet 0/2
+switchport mode trunk 
+no shutdown 
+exit
+
+========================================================
+------------------------Marketing------------------------
+========================================================
+enable 
+configure terminal 
+vlan 20
+name datos
+exit 
+vlan 30
+name voz
+exit
+interface range fastEthernet 0/3-5
+switchport mode access 
+switchport access vlan 20
+switchport voice vlan 30
+no shutdown 
+exit
+******************************************************
+interface fastEthernet 0/1
+switchport mode trunk 
+no shutdown 
+exit
+interface fastEthernet 0/2
+switchport mode trunk 
+no shutdown 
+exit
+
+========================================================
+------------------------T:I-----------------------------
+========================================================
+enable 
+configure terminal 
+vlan 20
+name datos
+exit 
+vlan 30
+name voz
+exit
+interface range fastEthernet 0/2-4
+switchport mode access 
+switchport access vlan 20
+switchport voice vlan 30
+no shutdown 
+exit
+******************************************************
+interface fastEthernet 0/1
+switchport mode trunk 
+no shutdown 
+exit
+
+========================================================
+------------------------BigHouseSede2-------------------
+========================================================
+enable 
+configure terminal 
+interface fastEthernet 0/0
+no shutdown 
+******************************************************************
+ip dhcp  pool datos
+network 192.168.40.0 255.255.255.0
+default-router 192.168.40.1
+option 150 ip 192.168.50.1
+exit
+
+ip dhcp pool voz
+network 192.168.50.0 255.255.255.0
+default-router 192.168.50.1
+option 150 ip 192.168.50.1
+exit
+
+ip dhcp excluded-address 192.168.40.1
+telephony-service 
+max-dn 10
+max-ephones 10
+ip source-address 192.168.50.1 port 2000
+auto assign 1 to 10
+exit
+
+ephone-dn 1
+number 13001
+ephone-dn 2
+number 13002
+ephone-dn 3
+number 13003
+ephone-dn 4
+number 13004
+ephone-dn 5
+number 13005
+			
+exit
+
+************ habilitar trafico ****************************
+interface fastEthernet 0/0.40
+encapsulation dot1Q 40
+ip address 192.168.40.1 255.255.255.0
+no shutdown
+exit
+interface fastEthernet 0/0.50
+encapsulation dot1Q 50
+ip address 192.168.50.1 255.255.255.0
+no shutdown 
+exit
+************config serial***********************************
+interface serial 0/1/0
+ip address 10.10.10.2 255.255.255.252
+no shutdown 
+exit
+														   
+************ conexion entre routers voz************************
+dial-peer voice 1 voip 
+destination-pattern 1200.
+session target ipv4:10.10.10.1
+exit
+========================================================
+------------------------sede2---------------------------
+========================================================
+enable 
+configure terminal 
+vlan 40
+name datos
+exit 
+vlan 50
+name voz
+exit
+interface range fastEthernet 0/2-6
+switchport mode access 
+switchport access vlan 40
+switchport voice vlan 50
+no shutdown 
+exit
+******************************************************
+interface fastEthernet 0/1
+switchport mode trunk 
+no shutdown 
+exit
